@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private float yPositionCamera;
     public GameObject cameraGameObject;
     private Vector3 positionCameraComparedPlane = new Vector3(0, 8, 0);
+    private Vector3 desiredPosition, smoothPosition;
 
     // Projectiles Managing
     public bool throwableProjectiles = true;
@@ -65,6 +66,18 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(lookingRight);
             ThrowProjectile();
         }
+
+        if (cameraGameObject.transform.position != desiredPosition)
+        {
+            smoothPosition = Vector3.Lerp(cameraGameObject.transform.position, desiredPosition, 2f * Time.deltaTime);
+            cameraGameObject.transform.position = smoothPosition;
+
+            if (Vector3.Distance(cameraGameObject.transform.position, desiredPosition) < 0.1f)
+            {
+                //J'estime quil sont très très proche
+                cameraGameObject.transform.position = desiredPosition;
+            }
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -75,7 +88,7 @@ public class PlayerController : MonoBehaviour
             positionCameraComparedPlane.x = collision.transform.position.x;
             positionCameraComparedPlane.z = collision.transform.position.z;
             positionCameraComparedPlane.y = yPositionCamera;
-            cameraGameObject.transform.position = positionCameraComparedPlane;
+            desiredPosition = positionCameraComparedPlane;
         }
 
         // Win the game
