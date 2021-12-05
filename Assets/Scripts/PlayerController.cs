@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
     // Camera Managing
     private float yPositionCamera;
     public GameObject cameraGameObject;
-    private Vector3 positionCameraComparedPlane = new Vector3(0, 8, 0);
+    private Vector3 positionCameraComparedPlane = new Vector3(0, 10, 0);
     private Vector3 desiredPosition, smoothPosition;
 
     // Projectiles Managing
@@ -30,11 +31,23 @@ public class PlayerController : MonoBehaviour
     // Reach the end of the level boolean
     public bool win = false;
 
+    private Rigidbody rigidbody;
+
     // Start is called before the first frame update
     void Start()
     {
         // To keep the camera to the same height
         yPositionCamera = cameraGameObject.gameObject.transform.position.y;
+        rigidbody = GetComponent<Rigidbody>();
+        StartCoroutine(UnlockPosition());
+    }
+
+    IEnumerator UnlockPosition()
+    {
+        yield return new WaitForSeconds(3);
+        rigidbody.velocity = new Vector3(0, 0, 0);
+        rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+        rigidbody.velocity = new Vector3(0, 0, 0);
     }
 
     // Update is called once per frame

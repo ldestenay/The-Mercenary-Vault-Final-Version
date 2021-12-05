@@ -15,6 +15,15 @@ public class Destroyer : MonoBehaviour
         //Debug.Log("Destroyer (OnCollisionEnter) " + collision.gameObject.tag);
         if (collision.gameObject.tag == "CloseRoom")
         {
+            //Destroy(collision.gameObject);
+
+            Transform[] objectList;
+            objectList = collision.gameObject.GetComponentsInChildren<Transform>();
+
+            foreach (Transform tempObject in objectList)
+            {
+                Destroy(tempObject.gameObject);
+            }
             Destroy(collision.gameObject);
         }
     }
