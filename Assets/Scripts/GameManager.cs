@@ -18,10 +18,6 @@ public class GameManager : MonoBehaviour
     // HUD
     public TextMeshProUGUI healthText;
 
-
-    // Position of the spawn of the player when pressing start
-    private readonly Vector3 startPosition = new Vector3(0, 0.75f, 0);
-
     // Is Game Over
     private bool isGameOver = false;
 

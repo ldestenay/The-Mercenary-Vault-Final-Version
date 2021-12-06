@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
     {
         if (throwableProjectiles)
         {
-            Instantiate(projectilePrefab, transform.position + transform.forward, transform.rotation);
+            Instantiate(projectilePrefab, transform.position + transform.forward + transform.up, transform.rotation);
             throwableProjectiles = false;
         }
     }

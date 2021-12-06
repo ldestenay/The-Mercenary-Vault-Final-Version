@@ -4,11 +4,13 @@ public class Projectile : MonoBehaviour
 {
     // Projectile speed
     private readonly float projectileSpeed = 10;
+    private GameObject player;
+    private Vector3 forwardPlayer;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
