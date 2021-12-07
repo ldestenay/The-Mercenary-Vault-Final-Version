@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
 
         // Game Setter
         mainPlayer = GameObject.Find("Player").GetComponent<PlayerController>();
-        Debug.Log(GameObject.Find("Player"));
         healthText.text = "Health Remaining: " + mainPlayer.health;
         StartCoroutine(Timer());
     }
@@ -57,7 +56,7 @@ public class GameManager : MonoBehaviour
         while (!isGameOver)
         {
             // Can throw projectiles every 0.3 seconds
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(.01f);
 
             if(mainPlayer.health <= 0)
             {
@@ -71,7 +70,6 @@ public class GameManager : MonoBehaviour
             else
             {
                 healthText.text = "Health Remaining: " + mainPlayer.health;
-                mainPlayer.throwableProjectiles = true;
             }
         }
     }
