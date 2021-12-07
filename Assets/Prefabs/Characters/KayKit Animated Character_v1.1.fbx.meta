@@ -1,8 +1,62 @@
 fileFormatVersion: 2
-guid: 67d5c94126489a940bf8cf6e5fc8d100
+guid: 94b37289f1891dd4e94a4d18fd99979b
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 9019994078358539022
+    second: KayKit Animated Character|Attack(1h)
+  - first:
+      74: -1198715839237812607
+    second: KayKit Animated Character|BasePose
+  - first:
+      74: -7335272188109255790
+    second: KayKit Animated Character|Block
+  - first:
+      74: 5593349898487233307
+    second: KayKit Animated Character|Cheer
+  - first:
+      74: 1678070290478169378
+    second: KayKit Animated Character|Climbing
+  - first:
+      74: 5300060005361769363
+    second: KayKit Animated Character|Defeat
+  - first:
+      74: -6991075544170381116
+    second: KayKit Animated Character|HeavyAttack
+  - first:
+      74: 560194234720034106
+    second: KayKit Animated Character|Hop
+  - first:
+      74: -3132563606269690235
+    second: KayKit Animated Character|Idle
+  - first:
+      74: 1728088361261182183
+    second: KayKit Animated Character|Jump
+  - first:
+      74: -2399789667805123660
+    second: KayKit Animated Character|LayingDownIdle
+  - first:
+      74: 8886567251451666223
+    second: KayKit Animated Character|Run
+  - first:
+      74: -1465499701635773613
+    second: KayKit Animated Character|Shoot(1h)
+  - first:
+      74: 8888589377697818043
+    second: KayKit Animated Character|Shoot(2h)
+  - first:
+      74: -56628868583331882
+    second: KayKit Animated Character|Shooting(1h)
+  - first:
+      74: -835893644005555353
+    second: KayKit Animated Character|Shooting(2h)
+  - first:
+      74: 7807934186493442652
+    second: KayKit Animated Character|Walk
+  - first:
+      74: 5358457859207210129
+    second: KayKit Animated Character|Wave
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -94,7 +148,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 

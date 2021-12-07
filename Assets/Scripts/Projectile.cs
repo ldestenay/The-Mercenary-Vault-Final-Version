@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour
     {
         // Projectiles always go straight forward
         transform.Translate(Vector3.forward * Time.deltaTime * projectileSpeed);
+        transform.Rotate(new Vector3(0, 0, 20));
     }
 
     // Destroy when hits objects
