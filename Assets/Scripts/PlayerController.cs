@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     // Reach the end of the level boolean
     public bool win = false;
 
-    private Rigidbody rigidbody;
+    private new Rigidbody rigidbody;
 
     // Start is called before the first frame update
     void Start()

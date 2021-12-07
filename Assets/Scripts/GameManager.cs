@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
         // Game Setter
         mainPlayer = GameObject.Find("Player").GetComponent<PlayerController>();
+        Debug.Log(GameObject.Find("Player"));
         healthText.text = "Health Remaining: " + mainPlayer.health;
         StartCoroutine(Timer());
     }
