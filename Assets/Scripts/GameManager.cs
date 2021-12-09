@@ -18,10 +18,6 @@ public class GameManager : MonoBehaviour
     // HUD
     public TextMeshProUGUI healthText;
 
-
-    // Position of the spawn of the player when pressing start
-    private readonly Vector3 startPosition = new Vector3(0, 0.75f, 0);
-
     // Is Game Over
     private bool isGameOver = false;
 
@@ -59,11 +55,12 @@ public class GameManager : MonoBehaviour
     {
         while (!isGameOver)
         {
-            // Can throw projectiles every 0.3 seconds
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(.01f);
+            int playerHealth = mainPlayer.health;
 
-            if(mainPlayer.health <= 0)
+            if (playerHealth <= 0)
             {
+                yield return new WaitForSeconds(2);
                 GameOver();
             }
             else if (mainPlayer.win)
@@ -73,8 +70,7 @@ public class GameManager : MonoBehaviour
             // Change the health displayed if needed and make projectiles throwable
             else
             {
-                healthText.text = "Health Remaining: " + mainPlayer.health;
-                mainPlayer.throwableProjectiles = true;
+                healthText.text = "Health Remaining: " + playerHealth;
             }
         }
     }
