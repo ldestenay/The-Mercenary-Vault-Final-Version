@@ -1,14 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
+    public ParticleSystem deadParticles;
     public int life;
     public int speed;
 
     private Rigidbody enemyRb;
     private Animator animator;
     private GameObject player;
+    private bool enemyDead = false;
 
     void Start()
     {
@@ -22,10 +24,22 @@ public class Enemy : MonoBehaviour
         if (life <= 0)
         {
             animator.Play("Defeat");
+            enemyRb.velocity = Vector3.zero;
+            enemyRb.constraints = RigidbodyConstraints.FreezeAll;
+            if(!enemyDead) StartCoroutine(PlayParticles(2.5f));
             Destroy(gameObject, 3);
         }
 
-        if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject))
+        IEnumerator PlayParticles(float time)
+        {
+            enemyDead = true;
+            yield return new WaitForSeconds(time);
+            ParticleSystem particles;
+            particles = Instantiate(deadParticles, transform.position, transform.rotation);
+            deadParticles.Play();
+        }
+
+        if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject) && life > 0)
         {
             Vector3 lookAtPos = player.transform.position;
             lookAtPos.y = transform.position.y;

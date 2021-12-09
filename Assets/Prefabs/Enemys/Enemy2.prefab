@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2c460d56b76964cbfa359431b8ece5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deadParticles: {fileID: 19800004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
   life: 6
   speed: 6
 --- !u!95 &-3559507120535096366
