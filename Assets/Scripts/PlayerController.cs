@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -22,23 +23,32 @@ public class PlayerController : MonoBehaviour
     private Vector3 desiredPosition, smoothPosition;
 
     // Projectiles Managing
-    public bool throwableProjectiles = true;
+    private float delay;
+    private float delayThrow = .7f;
     public GameObject projectilePrefab;
-
-    // Health
-    public int health = 3;
 
     // Reach the end of the level boolean
     public bool win = false;
 
-    private Rigidbody rigidbody;
+    private new Rigidbody rigidbody;
+
+    // Player's animation
+    private Animator playerAnim;
+    public int health;
 
     // Start is called before the first frame update
     void Start()
     {
         // To keep the camera to the same height
         yPositionCamera = cameraGameObject.gameObject.transform.position.y;
+        
         rigidbody = GetComponent<Rigidbody>();
+        playerAnim = GetComponent<Animator>();
+
+        health = playerAnim.GetInteger("health");
+
+        delay = Time.time;
+
         StartCoroutine(UnlockPosition());
     }
 
@@ -51,11 +61,9 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        // Movement based on QASD keys
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        SetMoving();
 
         // Translate direction according to the rotation of the player
         transform.Translate(Vector3.forward * Time.deltaTime * movementSpeed * verticalInput, Space.World);
@@ -113,6 +121,7 @@ public class PlayerController : MonoBehaviour
         // Lose one health
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            playerAnim.SetInteger("health", playerAnim.GetInteger("health") - 1);
             health--;
         }
     }
@@ -122,10 +131,20 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void ThrowProjectile()
     {
-        if (throwableProjectiles)
+        if (delay <= Time.time)
         {
-            Instantiate(projectilePrefab, transform.position + transform.forward, transform.rotation);
-            throwableProjectiles = false;
+            playerAnim.SetTrigger("throw_trig");
+            Instantiate(projectilePrefab, transform.position + (transform.forward * 1.3f) + transform.up, transform.rotation);
+            delay = Time.time + delayThrow;
         }
+    }
+
+    private void SetMoving()
+    {
+        // Movement based on QASD keys
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+        playerAnim.SetFloat("v", Math.Abs(verticalInput));
+        playerAnim.SetFloat("h", Math.Abs(horizontalInput));
     }
 }
