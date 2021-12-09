@@ -26,14 +26,43 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: KayKit Animated Character|Jump
+      takeName: KayKit Animated Character|Jump
+      internalID: 0
+      firstFrame: 5
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -80,7 +109,52 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: Jump(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: KayKit Animated Character
+      parentName: Jump(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.0000002761675, y: 0.00000029802334, z: 0.00000006717954, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Body
+      parentName: KayKit Animated Character
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.00000008146034, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head
+      parentName: Body
+      position: {x: -0, y: 0.7115979, z: 0}
+      rotation: {x: 7.1054274e-15, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: armLeft
+      parentName: Body
+      position: {x: -0.14, y: 0.69159794, z: 0}
+      rotation: {x: 0.69969887, y: -0.10208714, z: 0.69969845, w: 0.102086976}
+      scale: {x: 1.000001, y: 1.0000001, z: 1}
+    - name: handSlotLeft
+      parentName: armLeft
+      position: {x: 1.2434498e-14, y: 0.5509223, z: -0.000000007450586}
+      rotation: {x: 0.6066169, y: 0.60661674, z: -0.36334014, w: 0.36334005}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: armRight
+      parentName: Body
+      position: {x: 0.14, y: 0.69159794, z: 0}
+      rotation: {x: 0.69969916, y: 0.10208682, z: 0.69969827, w: -0.10208712}
+      scale: {x: 1.000001, y: 1.0000001, z: 1}
+    - name: handSlotRight
+      parentName: armRight
+      position: {x: 3.5527137e-15, y: 0.5509222, z: 0.000000014901172}
+      rotation: {x: 0.36333993, y: 0.3633402, z: -0.60661685, w: 0.6066169}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    - name: PrototypePete
+      parentName: Jump(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.000000037748947, y: 5.4307467e-14, z: 2.1908189e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -91,7 +165,7 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
