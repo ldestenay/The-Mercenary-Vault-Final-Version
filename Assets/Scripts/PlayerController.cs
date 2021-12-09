@@ -27,9 +27,6 @@ public class PlayerController : MonoBehaviour
     private float delayThrow = .7f;
     public GameObject projectilePrefab;
 
-    // Health
-    public int health = 3;
-
     // Reach the end of the level boolean
     public bool win = false;
 
@@ -37,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     // Player's animation
     private Animator playerAnim;
+    public int health;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +44,8 @@ public class PlayerController : MonoBehaviour
         
         rigidbody = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
+
+        health = playerAnim.GetInteger("health");
 
         delay = Time.time;
 
@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour
         // Lose one health
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            playerAnim.SetInteger("health", playerAnim.GetInteger("health") - 1);
             health--;
         }
     }

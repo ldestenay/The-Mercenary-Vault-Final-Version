@@ -55,11 +55,12 @@ public class GameManager : MonoBehaviour
     {
         while (!isGameOver)
         {
-            // Can throw projectiles every 0.3 seconds
             yield return new WaitForSeconds(.01f);
+            int playerHealth = mainPlayer.health;
 
-            if(mainPlayer.health <= 0)
+            if (playerHealth <= 0)
             {
+                yield return new WaitForSeconds(2);
                 GameOver();
             }
             else if (mainPlayer.win)
@@ -69,7 +70,7 @@ public class GameManager : MonoBehaviour
             // Change the health displayed if needed and make projectiles throwable
             else
             {
-                healthText.text = "Health Remaining: " + mainPlayer.health;
+                healthText.text = "Health Remaining: " + playerHealth;
             }
         }
     }
