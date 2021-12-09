@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -60,7 +61,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         SetMoving();
 
@@ -142,7 +143,7 @@ public class PlayerController : MonoBehaviour
         // Movement based on QASD keys
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
-        playerAnim.SetFloat("v", verticalInput);
-        playerAnim.SetFloat("h", horizontalInput);
+        playerAnim.SetFloat("v", Math.Abs(verticalInput));
+        playerAnim.SetFloat("h", Math.Abs(horizontalInput));
     }
 }

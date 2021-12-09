@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a84ae5cb4318d4cb712d93693bcc09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitParticles: {fileID: 19800004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
+  blowParticles: {fileID: 19800000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
 --- !u!65 &1643006999435629069
 BoxCollider:
   m_ObjectHideFlags: 0
