@@ -7,11 +7,13 @@ public class Enemy : MonoBehaviour
     public int speed;
 
     private Rigidbody enemyRb;
+    private Animator animator;
     private GameObject player;
 
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         player = GameObject.Find("Player");
     }
 
@@ -19,19 +21,24 @@ public class Enemy : MonoBehaviour
     {
         if (life <= 0)
         {
-            Destroy(gameObject);
+            animator.Play("Defeat");
+            Destroy(gameObject, 3);
         }
 
         if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject))
         {
-            // Make the enemy follow the player
-            Vector3 playerDirection = (player.transform.position - transform.position).normalized;
-            enemyRb.AddForce(playerDirection * speed * Time.deltaTime);
+            Vector3 lookAtPos = player.transform.position;
+            lookAtPos.y = transform.position.y;
+            gameObject.transform.LookAt(lookAtPos);
+
+            animator.SetBool("Run", true);
+            gameObject.transform.position += (transform.forward * speed/10 * Time.deltaTime);
         }
         else
         {
             // Make the enemy immobile
             enemyRb.velocity = Vector3.zero;
+            animator.SetBool("Run", false);
         }
     }
 
@@ -40,6 +47,11 @@ public class Enemy : MonoBehaviour
         if (collision.collider.CompareTag("Projectile"))
         {
             life--;
+        }
+
+        if (collision.collider.CompareTag("Player"))
+        {
+            animator.Play("Attack");
         }
     }
 

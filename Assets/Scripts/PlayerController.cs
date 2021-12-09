@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     // Camera Managing
     private float yPositionCamera;
     public GameObject cameraGameObject;
-    private Vector3 positionCameraComparedPlane = new Vector3(0, 10, 0);
+    private Vector3 positionCameraComparedPlane = new Vector3(0, 10, -2);
     private Vector3 desiredPosition, smoothPosition;
 
     // Projectiles Managing
@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Plane"))
         {
             positionCameraComparedPlane.x = collision.transform.position.x;
-            positionCameraComparedPlane.z = collision.transform.position.z;
+            positionCameraComparedPlane.z = collision.transform.position.z - 2;
             positionCameraComparedPlane.y = yPositionCamera;
             desiredPosition = positionCameraComparedPlane;
         }

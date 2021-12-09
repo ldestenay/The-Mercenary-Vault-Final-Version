@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     // HUD
     public TextMeshProUGUI healthText;
+    public Text objectiveText;
 
     // Is Game Over
     private bool isGameOver = false;
@@ -32,6 +34,10 @@ public class GameManager : MonoBehaviour
         mainPlayer = GameObject.Find("Player").GetComponent<PlayerController>();
         healthText.text = "Health Remaining: " + mainPlayer.health;
         StartCoroutine(Timer());
+
+        // Display objective
+        StartCoroutine(FadeInObjective(1f, objectiveText));
+        StartCoroutine(FadeOutObjective(1f, objectiveText));
     }
 
     // Button Credits Pressed
@@ -89,5 +95,25 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         room.SetActive(false);
         winScreen.SetActive(true);
+    }
+
+    private IEnumerator FadeInObjective(float time, Text objective)
+    {
+        objective.color = new Color(objective.color.r, objective.color.g, objective.color.b, 0);
+        while(objective.color.a < 1f)
+        {
+            objective.color = new Color(objective.color.r, objective.color.g, objective.color.b, objective.color.a + (Time.deltaTime / time));
+        }
+        yield return null;
+    }
+
+    private IEnumerator FadeOutObjective(float time, Text objective)
+    {
+        yield return new WaitForSeconds(2);
+        objective.color = new Color(objective.color.r, objective.color.g, objective.color.b, 1);
+        while (objective.color.a > 0f)
+        {
+            objective.color = new Color(objective.color.r, objective.color.g, objective.color.b, objective.color.a - (Time.deltaTime / time));
+        }
     }
 }
