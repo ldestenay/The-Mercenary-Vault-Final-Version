@@ -21,12 +21,8 @@ public class Enemy : MonoBehaviour
     {
         if (life <= 0)
         {
-            Destroy(gameObject);
-        }
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            animator.SetBool("Attack", true);
+            animator.Play("Defeat");
+            Destroy(gameObject, 3);
         }
 
         if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject))
@@ -35,14 +31,14 @@ public class Enemy : MonoBehaviour
             lookAtPos.y = transform.position.y;
             gameObject.transform.LookAt(lookAtPos);
 
+            animator.SetBool("Run", true);
             gameObject.transform.position += (transform.forward * speed/10 * Time.deltaTime);
-
-
         }
         else
         {
             // Make the enemy immobile
             enemyRb.velocity = Vector3.zero;
+            animator.SetBool("Run", false);
         }
     }
 
@@ -51,6 +47,11 @@ public class Enemy : MonoBehaviour
         if (collision.collider.CompareTag("Projectile"))
         {
             life--;
+        }
+
+        if (collision.collider.CompareTag("Player"))
+        {
+            animator.Play("Attack");
         }
     }
 
