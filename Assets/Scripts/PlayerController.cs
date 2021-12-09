@@ -63,6 +63,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (health <= 0) return;
+
         SetMoving();
 
         // Translate direction according to the rotation of the player
