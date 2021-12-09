@@ -95,9 +95,10 @@ GameObject:
   - component: {fileID: 1395822870678168273}
   - component: {fileID: 2661959518961560948}
   - component: {fileID: 222322753372199358}
-  - component: {fileID: 7000952885415991358}
+  - component: {fileID: 613949989458378934}
   - component: {fileID: 9056587117773079997}
   - component: {fileID: -5504918810961023815}
+  - component: {fileID: 7843743793438777195}
   m_Layer: 0
   m_Name: Enemy3
   m_TagString: Enemy
@@ -175,8 +176,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7000952885415991358
-MeshCollider:
+--- !u!136 &613949989458378934
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -185,10 +186,10 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3071785175480579466, guid: 6ad30ace774121b4a8fb8a25613eaf8f, type: 3}
+  m_Radius: 0.5
+  m_Height: 1.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!54 &9056587117773079997
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -218,7 +219,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 9
-  speed: 30
+  speed: 3
+--- !u!95 &7843743793438777195
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735334110694684779}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 27ae984b819154b41be038ad51791c68, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3509572293959927925
 GameObject:
   m_ObjectHideFlags: 0
