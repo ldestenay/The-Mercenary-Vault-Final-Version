@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -78,7 +77,7 @@ public class GameManager : MonoBehaviour
             {
                 Win();
             } 
-            // Change the health displayed if needed and make projectiles throwable
+            // Change the health displayed
             else
             {
                 switch (mainPlayer.health)
@@ -121,6 +120,12 @@ public class GameManager : MonoBehaviour
         winScreen.SetActive(true);
     }
 
+    /// <summary>
+    /// Routine showing the objective on the screen
+    /// </summary>
+    /// <param name="time"></param>
+    /// <param name="objective"></param>
+    /// <returns></returns>
     private IEnumerator FadeInObjective(float time, Text objective)
     {
         objective.color = new Color(objective.color.r, objective.color.g, objective.color.b, 0);
@@ -131,6 +136,12 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
+    /// <summary>
+    /// Routine removing the objective of the screen
+    /// </summary>
+    /// <param name="time"></param>
+    /// <param name="objective"></param>
+    /// <returns></returns>
     private IEnumerator FadeOutObjective(float time, Text objective)
     {
         yield return new WaitForSeconds(2);

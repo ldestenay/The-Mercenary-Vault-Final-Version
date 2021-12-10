@@ -121,7 +121,9 @@ public class PlayerController : MonoBehaviour
         // Lose one health
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            // Animation trigger
             playerAnim.SetInteger("health", playerAnim.GetInteger("health") - 1);
+            // GameManager trigger
             health--;
         }
     }
