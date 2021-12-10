@@ -17,11 +17,14 @@ public class GameManager : MonoBehaviour
     public GameObject enemy;
 
     // HUD
-    public TextMeshProUGUI healthText;
     public Text objectiveText;
+    public Image h1;
+    public Image h2;
+    public Image h3;
 
     // Is Game Over
     private bool isGameOver = false;
+
 
     // Button Start Pressed
     public void StartGame()
@@ -32,7 +35,6 @@ public class GameManager : MonoBehaviour
 
         // Game Setter
         mainPlayer = GameObject.Find("Player").GetComponent<PlayerController>();
-        healthText.text = "Health Remaining: " + mainPlayer.health;
         StartCoroutine(Timer());
 
         // Display objective
@@ -66,6 +68,9 @@ public class GameManager : MonoBehaviour
 
             if (playerHealth <= 0)
             {
+                h1.enabled = false;
+                h2.enabled = false;
+                h3.enabled = false;
                 yield return new WaitForSeconds(2);
                 GameOver();
             }
@@ -76,7 +81,26 @@ public class GameManager : MonoBehaviour
             // Change the health displayed if needed and make projectiles throwable
             else
             {
-                healthText.text = "Health Remaining: " + playerHealth;
+                switch (mainPlayer.health)
+                {
+                    case 3:
+                        h1.enabled = true;
+                        h2.enabled = true;
+                        h3.enabled = true;
+                        break;
+                    case 2:
+                        h1.enabled = true;
+                        h2.enabled = true;
+                        h3.enabled = false;
+                        break;
+                    case 1:
+                        h1.enabled = true;
+                        h2.enabled = false;
+                        h3.enabled = false;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
