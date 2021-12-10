@@ -34,17 +34,20 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Play particles according to the object collided
+    /// </summary>
+    /// <param name="collision"></param>
     private void PlayParticles(Collision collision)
     {
-        ParticleSystem particles;
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            particles = Instantiate(hitParticles, transform.position, transform.rotation);
+            Instantiate(hitParticles, transform.position, transform.rotation);
             hitParticles.Play();
             return;
         }
 
-        particles = Instantiate(blowParticles, transform.position, transform.rotation);
+        Instantiate(blowParticles, transform.position, transform.rotation);
         blowParticles.Play();
     }
 }
