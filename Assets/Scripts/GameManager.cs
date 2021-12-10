@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -18,11 +17,14 @@ public class GameManager : MonoBehaviour
     public GameObject enemy;
 
     // HUD
-    public TextMeshProUGUI healthText;
     public Text objectiveText;
+    public Image h1;
+    public Image h2;
+    public Image h3;
 
     // Is Game Over
     private bool isGameOver = false;
+
 
     // Button Start Pressed
     public void StartGame()
@@ -33,7 +35,6 @@ public class GameManager : MonoBehaviour
 
         // Game Setter
         mainPlayer = GameObject.Find("Player").GetComponent<PlayerController>();
-        healthText.text = "Health Remaining: " + mainPlayer.health;
         StartCoroutine(Timer());
 
         // Display objective
@@ -67,11 +68,14 @@ public class GameManager : MonoBehaviour
     {
         while (!isGameOver)
         {
-            yield return new WaitForSeconds(.01f);
+            yield return null;
             int playerHealth = mainPlayer.health;
 
             if (playerHealth <= 0)
             {
+                h1.enabled = false;
+                h2.enabled = false;
+                h3.enabled = false;
                 yield return new WaitForSeconds(2);
                 GameOver();
             }
@@ -79,10 +83,29 @@ public class GameManager : MonoBehaviour
             {
                 Win();
             } 
-            // Change the health displayed if needed and make projectiles throwable
+            // Change the health displayed
             else
             {
-                healthText.text = "Health Remaining: " + playerHealth;
+                switch (mainPlayer.health)
+                {
+                    case 3:
+                        h1.enabled = true;
+                        h2.enabled = true;
+                        h3.enabled = true;
+                        break;
+                    case 2:
+                        h1.enabled = true;
+                        h2.enabled = true;
+                        h3.enabled = false;
+                        break;
+                    case 1:
+                        h1.enabled = true;
+                        h2.enabled = false;
+                        h3.enabled = false;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
@@ -103,6 +126,12 @@ public class GameManager : MonoBehaviour
         winScreen.SetActive(true);
     }
 
+    /// <summary>
+    /// Routine showing the objective on the screen
+    /// </summary>
+    /// <param name="time"></param>
+    /// <param name="objective"></param>
+    /// <returns></returns>
     private IEnumerator FadeInObjective(float time, Text objective)
     {
         objective.color = new Color(objective.color.r, objective.color.g, objective.color.b, 0);
@@ -113,6 +142,12 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
+    /// <summary>
+    /// Routine removing the objective of the screen
+    /// </summary>
+    /// <param name="time"></param>
+    /// <param name="objective"></param>
+    /// <returns></returns>
     private IEnumerator FadeOutObjective(float time, Text objective)
     {
         yield return new WaitForSeconds(2);
