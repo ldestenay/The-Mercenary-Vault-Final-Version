@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     {
         while (!isGameOver)
         {
-            yield return new WaitForSeconds(.01f);
+            yield return null;
             int playerHealth = mainPlayer.health;
 
             if (playerHealth <= 0)
