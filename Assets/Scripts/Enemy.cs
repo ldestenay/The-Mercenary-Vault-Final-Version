@@ -9,20 +9,32 @@ public class Enemy : MonoBehaviour
     public int speed;
 
     private Rigidbody enemyRb;
+    private new CapsuleCollider collider;
     private Animator animator;
     private GameObject player;
-    private bool enemyDead = false;
+    private GameManager gameManager;
+
+    private bool particlesSent = false;
+    private bool isBoss = false;
+    private float timeParticles;
+    private float timeDestroy;
 
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        collider = GetComponent<CapsuleCollider>();
+        gameManager = FindObjectOfType<GameManager>();
         player = GameObject.Find("Player");
 
         if (projectilePrefab != null)
         {
             StartCoroutine("EnemyShooting");
         }
+
+        isBoss = life >= 20;
+        timeParticles = isBoss ? 2 : 2.5f;
+        timeDestroy = timeParticles == 2 ? 4 : 3.5f;
     }
 
     IEnumerator EnemyShooting()
@@ -41,13 +53,13 @@ public class Enemy : MonoBehaviour
     {
         if (life <= 0)
         {
-            animator.Play("Defeat");
-            enemyRb.detectCollisions = false;
-            enemyDead = true;
-            Destroy(gameObject, 3);
+            particlesSent = true;
+            yield return new WaitForSeconds(time);
+            Instantiate(deadParticles, transform.position, transform.rotation);
+            deadParticles.Play();
         }
 
-        if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject) && life > 0)
+        if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject) && life >= 0)
         {
             Vector3 lookAtPos = player.transform.position;
             lookAtPos.y = transform.position.y;
@@ -68,8 +80,7 @@ public class Enemy : MonoBehaviour
     {
         if (enemyDead)
         {
-            ParticleSystem particles;
-            particles = Instantiate(deadParticles, transform.position, transform.rotation);
+            Instantiate(deadParticles, transform.position, transform.rotation);
             deadParticles.Play();
         }
     }
