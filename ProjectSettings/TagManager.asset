@@ -13,6 +13,8 @@ TagManager:
   - Projectile
   - Boss
   - Enemy
+  - FxTemporaire
+  - BossPlane
   layers:
   - Default
   - TransparentFX

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private GameManager gameManager;
 
     // Player Movements
     private float horizontalInput;
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     // Reach the end of the level boolean
     public bool win = false;
+    public bool isBossRoomReached = false;
 
     private new Rigidbody rigidbody;
 
@@ -52,7 +54,12 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(UnlockPosition());
     }
 
-    IEnumerator UnlockPosition()
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
+    private IEnumerator UnlockPosition()
     {
         yield return new WaitForSeconds(3);
         rigidbody.velocity = new Vector3(0, 0, 0);
@@ -90,35 +97,25 @@ public class PlayerController : MonoBehaviour
             ThrowProjectile();
         }
 
-        if (cameraGameObject.transform.position != desiredPosition)
-        {
-            smoothPosition = Vector3.Lerp(cameraGameObject.transform.position, desiredPosition, 2f * Time.deltaTime);
-            cameraGameObject.transform.position = smoothPosition;
-
-            if (Vector3.Distance(cameraGameObject.transform.position, desiredPosition) < 0.1f)
-            {
-                //J'estime quil sont très très proche
-                cameraGameObject.transform.position = desiredPosition;
-            }
-        }
+        ChangeCameraPosition();
     }
 
     void OnCollisionEnter(Collision collision)
     {
         // Change position of the camera
-        if (collision.gameObject.CompareTag("Plane"))
+        if (collision.gameObject.tag.Contains("Plane"))
         {
             positionCameraComparedPlane.x = collision.transform.position.x;
             positionCameraComparedPlane.z = collision.transform.position.z - 2;
             positionCameraComparedPlane.y = yPositionCamera;
             desiredPosition = positionCameraComparedPlane;
+
+            if (collision.gameObject.tag.Contains("Boss")) ShowBossObjective();
         }
 
         // Win the game
-        if (collision.gameObject.CompareTag("Boss"))
-        {
-            win = true;
-        }
+        // TODO : Kill the boss = win
+        // 
 
         // Lose one health
         if (collision.gameObject.CompareTag("Enemy"))
@@ -127,6 +124,21 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetInteger("health", playerAnim.GetInteger("health") - 1);
             // GameManager trigger
             health--;
+            ChangeDisplayedHealth(health);
+        }
+    }
+
+    private void ChangeCameraPosition()
+    {
+        if (cameraGameObject.transform.position != desiredPosition)
+        {
+            smoothPosition = Vector3.Lerp(cameraGameObject.transform.position, desiredPosition, 2f * Time.deltaTime);
+            cameraGameObject.transform.position = smoothPosition;
+
+            if (Vector3.Distance(cameraGameObject.transform.position, desiredPosition) < 0.1f)
+            {
+                cameraGameObject.transform.position = desiredPosition;
+            }
         }
     }
 
@@ -150,5 +162,46 @@ public class PlayerController : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
         playerAnim.SetFloat("v", Math.Abs(verticalInput));
         playerAnim.SetFloat("h", Math.Abs(horizontalInput));
+    }
+
+    private void ChangeDisplayedHealth(int health)
+    {
+        // Change the health displayed
+        switch (health)
+        {
+            case 3:
+                gameManager.h1.enabled = true;
+                gameManager.h2.enabled = true;
+                gameManager.h3.enabled = true;
+                break;
+            case 2:
+                gameManager.h1.enabled = true;
+                gameManager.h2.enabled = true;
+                gameManager.h3.enabled = false;
+                break;
+            case 1:
+                gameManager.h1.enabled = true;
+                gameManager.h2.enabled = false;
+                gameManager.h3.enabled = false;
+                break;
+            default:
+                gameManager.h1.enabled = false;
+                gameManager.h2.enabled = false;
+                gameManager.h3.enabled = false;
+                StartCoroutine(GameOver());
+                break;
+        }
+    }
+
+    private IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(2);
+        gameManager.GameOver();
+    }
+
+    private void ShowBossObjective()
+    {
+        StartCoroutine(gameManager.FadeInObjective(1f, gameManager.bossText));
+        StartCoroutine(gameManager.FadeOutObjective(1f, gameManager.bossText));
     }
 }

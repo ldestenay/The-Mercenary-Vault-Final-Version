@@ -13,17 +13,14 @@ public class GameManager : MonoBehaviour
     public GameObject winScreen;
 
     // 3D Objects
-    private PlayerController mainPlayer;
     public GameObject enemy;
 
     // HUD
     public Text objectiveText;
+    public Text bossText;
     public Image h1;
     public Image h2;
     public Image h3;
-
-    // Is Game Over
-    private bool isGameOver = false;
 
 
     // Button Start Pressed
@@ -32,10 +29,6 @@ public class GameManager : MonoBehaviour
         // Display Labyrinth
         titleScreen.SetActive(false);
         room.SetActive(true);
-
-        // Game Setter
-        mainPlayer = GameObject.Find("Player").GetComponent<PlayerController>();
-        StartCoroutine(Timer());
 
         // Display objective
         StartCoroutine(FadeInObjective(1f, objectiveText));
@@ -63,57 +56,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    // Routine To Avoid Projectiles Spam
-    private IEnumerator Timer()
-    {
-        while (!isGameOver)
-        {
-            yield return null;
-            int playerHealth = mainPlayer.health;
-
-            if (playerHealth <= 0)
-            {
-                h1.enabled = false;
-                h2.enabled = false;
-                h3.enabled = false;
-                yield return new WaitForSeconds(2);
-                GameOver();
-            }
-            else if (mainPlayer.win)
-            {
-                Win();
-            } 
-            // Change the health displayed
-            else
-            {
-                switch (mainPlayer.health)
-                {
-                    case 3:
-                        h1.enabled = true;
-                        h2.enabled = true;
-                        h3.enabled = true;
-                        break;
-                    case 2:
-                        h1.enabled = true;
-                        h2.enabled = true;
-                        h3.enabled = false;
-                        break;
-                    case 1:
-                        h1.enabled = true;
-                        h2.enabled = false;
-                        h3.enabled = false;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    }
-
     // Display the GameOver sreen
-    private void GameOver()
+    public void GameOver()
     {
-        isGameOver = true;
         room.SetActive(false);
         gameOverScreen.SetActive(true);
     }
@@ -122,7 +67,6 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         new WaitForSeconds(3);
-        isGameOver = true;
         room.SetActive(false);
         winScreen.SetActive(true);
     }
@@ -133,7 +77,7 @@ public class GameManager : MonoBehaviour
     /// <param name="time"></param>
     /// <param name="objective"></param>
     /// <returns></returns>
-    private IEnumerator FadeInObjective(float time, Text objective)
+    public IEnumerator FadeInObjective(float time, Text objective)
     {
         objective.color = new Color(objective.color.r, objective.color.g, objective.color.b, 0);
         while(objective.color.a < 1f)
@@ -149,7 +93,7 @@ public class GameManager : MonoBehaviour
     /// <param name="time"></param>
     /// <param name="objective"></param>
     /// <returns></returns>
-    private IEnumerator FadeOutObjective(float time, Text objective)
+    public IEnumerator FadeOutObjective(float time, Text objective)
     {
         yield return new WaitForSeconds(2);
         objective.color = new Color(objective.color.r, objective.color.g, objective.color.b, 1);
