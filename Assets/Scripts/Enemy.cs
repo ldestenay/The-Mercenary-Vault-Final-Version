@@ -11,14 +11,18 @@ public class Enemy : MonoBehaviour
     private new CapsuleCollider collider;
     private Animator animator;
     private GameObject player;
+    private GameManager gameManager;
     private bool enemyDead = false;
+    private bool isBoss = false;
 
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         collider = GetComponent<CapsuleCollider>();
+        gameManager = FindObjectOfType<GameManager>();
         player = GameObject.Find("Player");
+        isBoss = life >= 20;
     }
 
     void Update()
@@ -30,6 +34,10 @@ public class Enemy : MonoBehaviour
             Destroy(collider);
             if(!enemyDead) StartCoroutine(PlayParticles(2.5f));
             Destroy(gameObject, 3);
+            if (isBoss)
+            {
+                gameManager.Win();
+            }
             return;
         }
 

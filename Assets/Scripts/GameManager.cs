@@ -119,8 +119,9 @@ public class GameManager : MonoBehaviour
     }
 
     // Display the win screen
-    private void Win()
+    public void Win()
     {
+        new WaitForSeconds(3);
         isGameOver = true;
         room.SetActive(false);
         winScreen.SetActive(true);
