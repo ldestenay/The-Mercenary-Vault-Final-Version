@@ -36,7 +36,6 @@ public class Projectile : MonoBehaviour
             case "Enemy":
                 if (collision.gameObject.CompareTag("Player"))
                 {
-                    Debug.Log("Le joeur recois des degats");
                     PlayerController playerController = GameObject.Find("Player").GetComponent<PlayerController>();
                     playerController.health--;
                 }

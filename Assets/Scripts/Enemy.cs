@@ -33,7 +33,6 @@ public class Enemy : MonoBehaviour
             if(IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject))
             {
                 Instantiate(projectilePrefab, transform.position + (transform.forward * 1.3f) + transform.up, transform.rotation);
-                Debug.Log("Shoot !");
             }
         }
     }
