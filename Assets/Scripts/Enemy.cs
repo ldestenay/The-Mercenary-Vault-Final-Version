@@ -12,8 +12,11 @@ public class Enemy : MonoBehaviour
     private Animator animator;
     private GameObject player;
     private GameManager gameManager;
-    private bool enemyDead = false;
+
+    private bool particlesSent = false;
     private bool isBoss = false;
+    private float timeParticles;
+    private float timeDestroy;
 
     void Start()
     {
@@ -23,6 +26,8 @@ public class Enemy : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         player = GameObject.Find("Player");
         isBoss = life >= 20;
+        timeParticles = isBoss ? 2 : 2.5f;
+        timeDestroy = timeParticles == 2 ? 4 : 3.5f;
     }
 
     void Update()
@@ -32,25 +37,25 @@ public class Enemy : MonoBehaviour
             animator.Play("Defeat");
             Destroy(enemyRb);
             Destroy(collider);
-            if(!enemyDead) StartCoroutine(PlayParticles(2.5f));
-            Destroy(gameObject, 3);
+            // Launch once Coroutine
+            if(!particlesSent) StartCoroutine(PlayParticles(timeParticles));
             if (isBoss)
             {
-                gameManager.Win();
+                StartCoroutine(gameManager.Win());
             }
+            Destroy(gameObject, timeParticles + 2);
             return;
         }
 
         IEnumerator PlayParticles(float time)
         {
-            enemyDead = true;
+            particlesSent = true;
             yield return new WaitForSeconds(time);
-            ParticleSystem particles;
-            particles = Instantiate(deadParticles, transform.position, transform.rotation);
+            Instantiate(deadParticles, transform.position, transform.rotation);
             deadParticles.Play();
         }
 
-        if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject) && life > 0)
+        if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject) && life >= 0)
         {
             Vector3 lookAtPos = player.transform.position;
             lookAtPos.y = transform.position.y;

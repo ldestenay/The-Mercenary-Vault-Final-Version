@@ -64,9 +64,9 @@ public class GameManager : MonoBehaviour
     }
 
     // Display the win screen
-    public void Win()
+    public IEnumerator Win()
     {
-        new WaitForSeconds(3);
+        yield return new WaitForSeconds(3f);
         room.SetActive(false);
         winScreen.SetActive(true);
     }
