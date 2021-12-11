@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     public int speed;
 
     private Rigidbody enemyRb;
+    private new CapsuleCollider collider;
     private Animator animator;
     private GameObject player;
     private bool enemyDead = false;
@@ -16,6 +17,7 @@ public class Enemy : MonoBehaviour
     {
         enemyRb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        collider = GetComponent<CapsuleCollider>();
         player = GameObject.Find("Player");
     }
 
@@ -24,10 +26,11 @@ public class Enemy : MonoBehaviour
         if (life <= 0)
         {
             animator.Play("Defeat");
-            enemyRb.velocity = Vector3.zero;
-            enemyRb.constraints = RigidbodyConstraints.FreezeAll;
+            Destroy(enemyRb);
+            Destroy(collider);
             if(!enemyDead) StartCoroutine(PlayParticles(2.5f));
             Destroy(gameObject, 3);
+            return;
         }
 
         IEnumerator PlayParticles(float time)
