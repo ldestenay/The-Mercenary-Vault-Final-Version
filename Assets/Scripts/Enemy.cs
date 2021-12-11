@@ -4,6 +4,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public ParticleSystem deadParticles;
+    public GameObject projectilePrefab;
     public int life;
     public int speed;
 
@@ -17,6 +18,24 @@ public class Enemy : MonoBehaviour
         enemyRb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         player = GameObject.Find("Player");
+
+        if (projectilePrefab != null)
+        {
+            StartCoroutine("EnemyShooting");
+        }
+    }
+
+    IEnumerator EnemyShooting()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+            if(IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject))
+            {
+                Instantiate(projectilePrefab, transform.position + (transform.forward * 1.3f) + transform.up, transform.rotation);
+                Debug.Log("Shoot !");
+            }
+        }
     }
 
     void Update()
@@ -24,19 +43,9 @@ public class Enemy : MonoBehaviour
         if (life <= 0)
         {
             animator.Play("Defeat");
-            enemyRb.velocity = Vector3.zero;
-            enemyRb.constraints = RigidbodyConstraints.FreezeAll;
-            if(!enemyDead) StartCoroutine(PlayParticles(2.5f));
-            Destroy(gameObject, 3);
-        }
-
-        IEnumerator PlayParticles(float time)
-        {
+            enemyRb.detectCollisions = false;
             enemyDead = true;
-            yield return new WaitForSeconds(time);
-            ParticleSystem particles;
-            particles = Instantiate(deadParticles, transform.position, transform.rotation);
-            deadParticles.Play();
+            Destroy(gameObject, 3);
         }
 
         if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject) && life > 0)
@@ -53,6 +62,16 @@ public class Enemy : MonoBehaviour
             // Make the enemy immobile
             enemyRb.velocity = Vector3.zero;
             animator.SetBool("Run", false);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (enemyDead)
+        {
+            ParticleSystem particles;
+            particles = Instantiate(deadParticles, transform.position, transform.rotation);
+            deadParticles.Play();
         }
     }
 

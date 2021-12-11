@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1643006999435629069}
   - component: {fileID: -9205391199541177639}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: ProjectilePlayer
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitParticles: {fileID: 19800004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
   blowParticles: {fileID: 19800000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
+  origin: Player
 --- !u!65 &1643006999435629069
 BoxCollider:
   m_ObjectHideFlags: 0
