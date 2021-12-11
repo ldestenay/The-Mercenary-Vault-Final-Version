@@ -38,6 +38,9 @@ public class PlayerController : MonoBehaviour
     private Animator playerAnim;
     public int health;
 
+    // Player's Particles
+    public ParticleSystem hittedParticles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -113,10 +116,6 @@ public class PlayerController : MonoBehaviour
             if (collision.gameObject.tag.Contains("Boss")) ShowBossObjective();
         }
 
-        // Win the game
-        // TODO : Kill the boss = win
-        // 
-
         // Lose one health
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -125,6 +124,8 @@ public class PlayerController : MonoBehaviour
             // GameManager trigger
             health--;
             ChangeDisplayedHealth(health);
+            Instantiate(hittedParticles, transform.position, transform.rotation);
+            hittedParticles.Play();
         }
     }
 
