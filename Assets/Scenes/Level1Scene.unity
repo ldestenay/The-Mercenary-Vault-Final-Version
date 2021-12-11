@@ -701,6 +701,85 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6424250521832101213, guid: 02f7f9156513b7341b0514fe263bea11, type: 3}
   m_PrefabInstance: {fileID: 321289161}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &331102292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 331102293}
+  - component: {fileID: 331102295}
+  - component: {fileID: 331102294}
+  m_Layer: 5
+  m_Name: BossText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &331102293
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331102292}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1939978331}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 19}
+  m_SizeDelta: {x: 200, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &331102294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331102292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 7493fe7bc548ac747ad9553e7ed4ade4, type: 3}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: BEAT THE BOSS
+--- !u!222 &331102295
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331102292}
+  m_CullTransparentMesh: 1
 --- !u!1 &377818495
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,6 +816,7 @@ MonoBehaviour:
   winScreen: {fileID: 2102986259}
   enemy: {fileID: 7346773736782420649, guid: a5aae22f4221c9b48a0770eaa0c68313, type: 3}
   objectiveText: {fileID: 151727857}
+  bossText: {fileID: 331102294}
   h1: {fileID: 1404887499}
   h2: {fileID: 1834700939}
   h3: {fileID: 424018665}
@@ -784,7 +864,7 @@ RectTransform:
   m_LocalScale: {x: 0.29, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 1939978331}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -964,9 +1044,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 395863999606525983, guid: ff9619682be477949960989af0b44985, type: 3}
+      propertyPath: m_Size.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 395863999606525983, guid: ff9619682be477949960989af0b44985, type: 3}
+      propertyPath: m_Size.y
+      value: 0.9963446
+      objectReference: {fileID: 0}
+    - target: {fileID: 395863999606525983, guid: ff9619682be477949960989af0b44985, type: 3}
+      propertyPath: m_Center.y
+      value: 0.4981723
+      objectReference: {fileID: 0}
     - target: {fileID: 882471201096161620, guid: ff9619682be477949960989af0b44985, type: 3}
       propertyPath: m_Name
       value: T
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877988655788369119, guid: ff9619682be477949960989af0b44985, type: 3}
+      propertyPath: m_TagString
+      value: BossPlane
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff9619682be477949960989af0b44985, type: 3}
@@ -3213,7 +3309,7 @@ RectTransform:
   m_LocalScale: {x: 0.29, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 1939978331}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4349,7 +4445,7 @@ RectTransform:
   m_LocalScale: {x: 0.29, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 1939978331}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4936,6 +5032,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 151727856}
+  - {fileID: 331102293}
   - {fileID: 1404887497}
   - {fileID: 1834700938}
   - {fileID: 424018664}
