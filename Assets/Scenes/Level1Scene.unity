@@ -1708,6 +1708,9 @@ PrefabInstance:
       propertyPath: health
       value: 2
       objectReference: {fileID: 0}
+      propertyPath: deathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4a288565955c6624cb0aca9231b6157c, type: 3}
     - target: {fileID: 854233519, guid: 444dd6b1294187748bcaede54f48b19e, type: 3}
       propertyPath: hittedParticles
       value: 
