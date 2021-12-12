@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     // Camera Managing
     private float yPositionCamera;
     public GameObject cameraGameObject;
-    private Vector3 positionCameraComparedPlane = new Vector3(0, 10, -2);
+    private Vector3 positionCameraComparedPlane = new Vector3(0, 11, -2);
     private Vector3 desiredPosition, smoothPosition;
 
     // Projectiles Managing
