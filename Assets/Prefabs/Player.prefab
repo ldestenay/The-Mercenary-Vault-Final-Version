@@ -134,6 +134,7 @@ MonoBehaviour:
   playerAnim: {fileID: 0}
   health: 3
   throwAudio: {fileID: 8300000, guid: a77720321a7260e42962c64a8891aa3a, type: 3}
+  deathClip: {fileID: 8300000, guid: 4a288565955c6624cb0aca9231b6157c, type: 3}
 --- !u!82 &6667173163947941895
 AudioSource:
   m_ObjectHideFlags: 0
@@ -784,7 +785,7 @@ GameObject:
   - component: {fileID: 6092780814795836135}
   - component: {fileID: 8316196428349734445}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

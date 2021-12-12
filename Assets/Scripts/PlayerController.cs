@@ -137,9 +137,11 @@ public class PlayerController : MonoBehaviour
         // Win one health
         if (collision.gameObject.CompareTag("Potion"))
         {
-            // GameManager trigger
-            if(health < 3)
+            if (health < 3)
             {
+                // Animation trigger
+                playerAnim.SetInteger("health", playerAnim.GetInteger("health") + 1);
+                // GameManager trigger
                 health++;
                 ChangeDisplayedHealth(health);
                 //TODO Mettre le son ici !
