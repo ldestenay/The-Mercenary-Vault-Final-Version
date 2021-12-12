@@ -820,6 +820,7 @@ MonoBehaviour:
   h1: {fileID: 1404887499}
   h2: {fileID: 1834700939}
   h3: {fileID: 424018665}
+  bossFight: {fileID: 8300000, guid: 18e5383da2d74564b8e0b106aa9c945d, type: 3}
 --- !u!4 &377818497
 Transform:
   m_ObjectHideFlags: 0
@@ -1718,7 +1719,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2399331361007403034, guid: 444dd6b1294187748bcaede54f48b19e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -37.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2399331361007403034, guid: 444dd6b1294187748bcaede54f48b19e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1726,7 +1727,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2399331361007403034, guid: 444dd6b1294187748bcaede54f48b19e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.04
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2399331361007403034, guid: 444dd6b1294187748bcaede54f48b19e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2343,7 +2344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &996832570
 Transform:
   m_ObjectHideFlags: 0

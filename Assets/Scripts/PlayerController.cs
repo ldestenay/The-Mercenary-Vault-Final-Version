@@ -122,7 +122,11 @@ public class PlayerController : MonoBehaviour
             positionCameraComparedPlane.y = yPositionCamera;
             desiredPosition = positionCameraComparedPlane;
 
-            if (collision.gameObject.tag.Contains("Boss")) ShowBossObjective();
+            if (collision.gameObject.tag.Contains("Boss"))
+            {
+                gameManager.PlaySoundBoss();
+                ShowBossObjective();
+            }
         }
 
         // Lose one health

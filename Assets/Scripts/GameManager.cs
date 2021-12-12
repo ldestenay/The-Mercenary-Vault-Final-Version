@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     // Sound
     private AudioSource mainMusic;
+    public AudioClip bossFight;
 
 
     // Button Start Pressed
@@ -61,6 +62,12 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PlaySoundBoss()
+    {
+        mainMusic.clip = bossFight;
+        mainMusic.Play();
     }
 
     // Display the GameOver sreen
