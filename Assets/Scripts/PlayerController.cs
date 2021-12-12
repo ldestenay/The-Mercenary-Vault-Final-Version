@@ -122,6 +122,19 @@ public class PlayerController : MonoBehaviour
             health--;
             ChangeDisplayedHealth(health);
         }
+
+        // Win one health
+        if (collision.gameObject.CompareTag("Potion"))
+        {
+            // GameManager trigger
+            if(health < 3)
+            {
+                health++;
+                ChangeDisplayedHealth(health);
+                //TODO Mettre le son ici !
+            }
+            Destroy(collision.gameObject);
+        }
     }
 
     private void ChangeCameraPosition()
