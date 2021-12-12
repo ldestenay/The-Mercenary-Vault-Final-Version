@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     // Audio
     public AudioClip throwAudio;
     public AudioClip deathClip;
+    public AudioClip gloopAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -144,7 +145,7 @@ public class PlayerController : MonoBehaviour
                 // GameManager trigger
                 health++;
                 ChangeDisplayedHealth(health);
-                //TODO Mettre le son ici !
+                GetComponent<AudioSource>().PlayOneShot(gloopAudio, .35f);
             }
             Destroy(collision.gameObject);
         }
