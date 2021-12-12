@@ -4,6 +4,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public ParticleSystem deadParticles;
+    public GameObject projectilePrefab;
     public int life;
     public int speed;
 
@@ -25,9 +26,27 @@ public class Enemy : MonoBehaviour
         collider = GetComponent<CapsuleCollider>();
         gameManager = FindObjectOfType<GameManager>();
         player = GameObject.Find("Player");
+
         isBoss = life >= 20;
         timeParticles = isBoss ? 2 : 2.5f;
         timeDestroy = timeParticles == 2 ? 4 : 3.5f;
+
+        if (projectilePrefab != null)
+        {
+            StartCoroutine("EnemyShooting");
+        }
+    }
+
+    IEnumerator EnemyShooting()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+            if(IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject))
+            {
+                Instantiate(projectilePrefab, transform.position + (transform.forward * 1.3f) + transform.up, transform.rotation);
+            }
+        }
     }
 
     void Update()
@@ -35,24 +54,9 @@ public class Enemy : MonoBehaviour
         if (life <= 0)
         {
             animator.Play("Defeat");
-            Destroy(enemyRb);
-            Destroy(collider);
-            // Launch once Coroutine
-            if(!particlesSent) StartCoroutine(PlayParticles(timeParticles));
-            if (isBoss)
-            {
-                StartCoroutine(gameManager.Win());
-            }
-            Destroy(gameObject, timeParticles + 2);
-            return;
-        }
-
-        IEnumerator PlayParticles(float time)
-        {
-            particlesSent = true;
-            yield return new WaitForSeconds(time);
-            Instantiate(deadParticles, transform.position, transform.rotation);
-            deadParticles.Play();
+            enemyRb.detectCollisions = false;
+            enemyDead = true;
+            Destroy(gameObject, 3);
         }
 
         if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject) && life >= 0)
@@ -69,6 +73,16 @@ public class Enemy : MonoBehaviour
             // Make the enemy immobile
             enemyRb.velocity = Vector3.zero;
             animator.SetBool("Run", false);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (enemyDead)
+        {
+            ParticleSystem particles;
+            particles = Instantiate(deadParticles, transform.position, transform.rotation);
+            deadParticles.Play();
         }
     }
 

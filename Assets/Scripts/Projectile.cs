@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
 
     public ParticleSystem hitParticles;
     public ParticleSystem blowParticles;
+    public string origin;
 
     // Start is called before the first frame update
     void Start()
@@ -24,13 +25,28 @@ public class Projectile : MonoBehaviour
     // Destroy when hits objects
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        switch (origin)
         {
-            return;
+            case "Player":
+                if (collision.gameObject.CompareTag("Player"))
+                {
+                    return;
+                }
+                break;
+            case "Enemy":
+                if (collision.gameObject.CompareTag("Player"))
+                {
+                    PlayerController playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+                    playerController.health--;
+                    playerController.playerAnim.SetInteger("health", playerController.playerAnim.GetInteger("health") - 1);
+                    playerController.ChangeDisplayedHealth(playerController.health);
+                }
+                break;
+            default:
+                break;
         }
 
         PlayParticles(collision);
-
         Destroy(gameObject);
     }
 
