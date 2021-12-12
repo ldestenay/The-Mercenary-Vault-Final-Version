@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public GameObject projectilePrefab;
     public int life;
     public int speed;
+    public bool dropItemp = false;
 
     private Rigidbody enemyRb;
     private new CapsuleCollider collider;
@@ -90,6 +91,13 @@ public class Enemy : MonoBehaviour
         {
             Instantiate(deadParticles, transform.position, transform.rotation);
             deadParticles.Play();
+
+            if (dropItemp)
+            {
+                ListDrops listDrops;
+                listDrops = GameObject.FindGameObjectWithTag("ListDrops").GetComponent<ListDrops>();
+                Instantiate(listDrops.dropList[0], transform.position, transform.rotation);
+            }
         }
     }
 

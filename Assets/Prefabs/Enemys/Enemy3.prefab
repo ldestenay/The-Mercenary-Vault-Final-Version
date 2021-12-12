@@ -392,8 +392,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadParticles: {fileID: 19800004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
+  projectilePrefab: {fileID: 0}
   life: 9
   speed: 3
+  dropItemp: 1
 --- !u!95 &-6338858547870436308
 Animator:
   serializedVersion: 3
