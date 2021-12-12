@@ -24,3 +24,7 @@
  - Projectiles Graphism
 
 https://ldestenay.github.io/The-Mercenary-Vault-Final-Version/
+
+For a better resolution, please put the game on full screen mode!
+
+# Enjoy
