@@ -55,8 +55,16 @@ public class Enemy : MonoBehaviour
         {
             animator.Play("Defeat");
             enemyRb.detectCollisions = false;
-            enemyDead = true;
-            Destroy(gameObject, 3);
+            Destroy(collider);
+            particlesSent = true;
+            
+            // Launch once Coroutine
+            if (isBoss)
+            {
+                StartCoroutine(gameManager.Win());
+            }
+            Destroy(gameObject, timeDestroy);
+            return;
         }
 
         if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject) && life >= 0)
@@ -78,10 +86,9 @@ public class Enemy : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (enemyDead)
+        if (particlesSent)
         {
-            ParticleSystem particles;
-            particles = Instantiate(deadParticles, transform.position, transform.rotation);
+            Instantiate(deadParticles, transform.position, transform.rotation);
             deadParticles.Play();
         }
     }
