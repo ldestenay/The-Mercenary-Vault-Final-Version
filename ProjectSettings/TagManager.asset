@@ -13,8 +13,11 @@ TagManager:
   - Projectile
   - Boss
   - Enemy
-  - FxTemporaire
   - BossPlane
+  - ListDrops
+  - Potion
+  - DeathFX
+  - ExplosionFX
   layers:
   - Default
   - TransparentFX

@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     public ParticleSystem deadParticles;
     public int life;
     public int speed;
+    public bool dropItemp = false;
 
     private Rigidbody enemyRb;
     private new CapsuleCollider collider;
@@ -18,41 +19,60 @@ public class Enemy : MonoBehaviour
     private float timeParticles;
     private float timeDestroy;
 
+    // Audio
+    public AudioClip attackAudio;
+    public AudioClip deathAudio;
+    public AudioClip explosionAudio;
+    private AudioSource audioSource;
+    private readonly float volume = .5f;
+
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         collider = GetComponent<CapsuleCollider>();
         gameManager = FindObjectOfType<GameManager>();
+        audioSource = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
+
         isBoss = life >= 20;
         timeParticles = isBoss ? 2 : 2.5f;
         timeDestroy = timeParticles == 2 ? 4 : 3.5f;
+
+        if (projectilePrefab != null)
+        {
+            StartCoroutine(EnemyShooting());
+        }
     }
 
     void Update()
     {
-        if (life <= 0)
+        while (life > 0)
         {
-            animator.Play("Defeat");
-            Destroy(enemyRb);
-            Destroy(collider);
-            // Launch once Coroutine
-            if (!particlesSent) StartCoroutine(PlayParticles(timeParticles));
-            if (isBoss)
+            yield return new WaitForSeconds(2);
+            if(IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject))
             {
-                StartCoroutine(gameManager.Win());
+                Instantiate(projectilePrefab, transform.position + (transform.forward * 1.3f) + transform.up, transform.rotation);
             }
-            Destroy(gameObject, timeParticles + 2);
-            return;
         }
 
         IEnumerator PlayParticles(float time)
         {
+            animator.Play("Defeat");
+            enemyRb.detectCollisions = false;
+            Destroy(collider);
+
+            if (!particlesSent) audioSource.PlayOneShot(deathAudio, volume);
+            
             particlesSent = true;
-            yield return new WaitForSeconds(time);
-            Instantiate(deadParticles, transform.position, transform.rotation);
-            deadParticles.Play();
+            
+            // Launch once Coroutine
+            if (isBoss)
+            {
+                StartCoroutine(gameManager.Win());
+            }
+            Destroy(gameObject, timeDestroy);
+            return;
         }
 
         if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject) && life >= 0)
@@ -72,6 +92,22 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (particlesSent)
+        {
+            Instantiate(deadParticles, transform.position, transform.rotation);
+            deadParticles.Play();
+
+            if (dropItemp)
+            {
+                ListDrops listDrops;
+                listDrops = GameObject.FindGameObjectWithTag("ListDrops").GetComponent<ListDrops>();
+                Instantiate(listDrops.dropList[0], transform.position, transform.rotation);
+            }
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Projectile"))
@@ -82,6 +118,7 @@ public class Enemy : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             animator.Play("Attack");
+            audioSource.PlayOneShot(attackAudio, volume);
         }
     }
 
