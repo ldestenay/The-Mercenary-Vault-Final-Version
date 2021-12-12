@@ -12,9 +12,12 @@ public class CFX_AutoDestructShuriken : MonoBehaviour
 {
 	// If true, deactivate the object instead of destroying it
 	public bool OnlyDeactivate;
+	public AudioClip explosionSound;
+	private readonly float volume = .35f;
 	
 	void OnEnable()
 	{
+		if(gameObject.tag == "DeathFX") GetComponent<AudioSource>().PlayOneShot(explosionSound, volume);
 		StartCoroutine("CheckIfAlive");
 	}
 	
