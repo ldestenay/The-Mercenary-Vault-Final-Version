@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     public Image h2;
     public Image h3;
 
+    // Sound
+    private AudioSource mainMusic;
+
 
     // Button Start Pressed
     public void StartGame()
@@ -29,6 +32,10 @@ public class GameManager : MonoBehaviour
         // Display Labyrinth
         titleScreen.SetActive(false);
         room.SetActive(true);
+
+        // Launch music
+        mainMusic = GameObject.Find("Main Camera").GetComponent<AudioSource>();
+        mainMusic.Play();
 
         // Display objective
         StartCoroutine(FadeInObjective(1f, objectiveText));
