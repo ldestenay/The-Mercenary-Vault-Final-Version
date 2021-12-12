@@ -38,6 +38,8 @@ public class Projectile : MonoBehaviour
                 {
                     PlayerController playerController = GameObject.Find("Player").GetComponent<PlayerController>();
                     playerController.health--;
+                    playerController.playerAnim.SetInteger("health", playerController.playerAnim.GetInteger("health") - 1);
+                    playerController.ChangeDisplayedHealth(playerController.health);
                 }
                 break;
             default:

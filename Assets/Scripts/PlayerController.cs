@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     private new Rigidbody rigidbody;
 
     // Player's animation
-    private Animator playerAnim;
+    public Animator playerAnim;
     public int health;
 
     // Player's Particles
@@ -165,7 +165,7 @@ public class PlayerController : MonoBehaviour
         playerAnim.SetFloat("h", Math.Abs(horizontalInput));
     }
 
-    private void ChangeDisplayedHealth(int health)
+    public void ChangeDisplayedHealth(int health)
     {
         // Change the health displayed
         switch (health)
