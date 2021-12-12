@@ -33,10 +33,15 @@ public class PlayerController : MonoBehaviour
     public bool isBossRoomReached = false;
 
     private new Rigidbody rigidbody;
+    private new CapsuleCollider collider;
 
     // Player's animation
     public Animator playerAnim;
     public int health;
+
+    // Audio
+    public AudioClip throwAudio;
+    public AudioClip deathClip;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +51,7 @@ public class PlayerController : MonoBehaviour
         
         rigidbody = GetComponent<Rigidbody>();
         playerAnim = GetComponent<Animator>();
+        collider = GetComponent<CapsuleCollider>();
 
         health = playerAnim.GetInteger("health");
 
@@ -70,7 +76,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (health <= 0) return;
+        if (health <= 0)
+        {
+            Destroy(collider);
+            rigidbody.detectCollisions = false;
+            return;
+        }
 
         SetMoving();
 
@@ -145,6 +156,7 @@ public class PlayerController : MonoBehaviour
     {
         if (delay <= Time.time)
         {
+            GetComponent<AudioSource>().PlayOneShot(throwAudio, .35f);
             playerAnim.SetTrigger("throw_trig");
             Instantiate(projectilePrefab, transform.position + (transform.forward * 1.3f) + transform.up, transform.rotation);
             delay = Time.time + delayThrow;
@@ -191,6 +203,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator GameOver()
     {
+        GetComponent<AudioSource>().PlayOneShot(deathClip, .35f);
         yield return new WaitForSeconds(2);
         gameManager.GameOver();
     }
