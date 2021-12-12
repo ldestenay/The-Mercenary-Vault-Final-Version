@@ -4,6 +4,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public ParticleSystem deadParticles;
+    public GameObject projectilePrefab;
     public int life;
     public int speed;
     public bool dropItemp = false;
@@ -45,27 +46,30 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Update()
+    IEnumerator EnemyShooting()
     {
         while (life > 0)
         {
             yield return new WaitForSeconds(2);
-            if(IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject))
+            if (IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject))
             {
                 Instantiate(projectilePrefab, transform.position + (transform.forward * 1.3f) + transform.up, transform.rotation);
             }
         }
+    }
 
-        IEnumerator PlayParticles(float time)
+    void Update()
+    {
+        if (life <= 0)
         {
             animator.Play("Defeat");
             enemyRb.detectCollisions = false;
             Destroy(collider);
 
             if (!particlesSent) audioSource.PlayOneShot(deathAudio, volume);
-            
+
             particlesSent = true;
-            
+
             // Launch once Coroutine
             if (isBoss)
             {
