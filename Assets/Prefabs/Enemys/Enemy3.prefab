@@ -394,7 +394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deadParticles: {fileID: 19800004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
   projectilePrefab: {fileID: 0}
-  life: 9
+  life: 5
   speed: 3
   dropItemp: 1
   attackAudio: {fileID: 8300000, guid: 6e3d64756759c5d4b89b9a56f530c426, type: 3}
