@@ -13,9 +13,9 @@ TagManager:
   - Projectile
   - Boss
   - Enemy
-  - FxTemporaire
   - BossPlane
   - DeathFX
+  - ExplosionFX
   layers:
   - Default
   - TransparentFX

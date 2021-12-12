@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
     public AudioClip attackAudio;
     public AudioClip deathAudio;
     public AudioClip explosionAudio;
-    public AudioClip arrowAudio;
     private AudioSource audioSource;
     private readonly float volume = .5f;
 
@@ -54,7 +53,6 @@ public class Enemy : MonoBehaviour
             if(IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject))
             {
                 Instantiate(projectilePrefab, transform.position + (transform.forward * 1.3f) + transform.up, transform.rotation);
-                audioSource.PlayOneShot(arrowAudio, volume);
             }
         }
     }

@@ -19071,7 +19071,7 @@ GameObject:
   - component: {fileID: 114566962382578006}
   m_Layer: 0
   m_Name: CFX_Explosion_B_Smoke+Text
-  m_TagString: FxTemporaire
+  m_TagString: ExplosionFX
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23779,3 +23779,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnlyDeactivate: 0
+  explosionSound: {fileID: 0}
+  hitSound: {fileID: 0}

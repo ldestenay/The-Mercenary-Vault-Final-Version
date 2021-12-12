@@ -56,6 +56,7 @@ public class Projectile : MonoBehaviour
     /// <param name="collision"></param>
     private void PlayParticles(Collision collision)
     {
+
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Instantiate(hitParticles, transform.position, transform.rotation);

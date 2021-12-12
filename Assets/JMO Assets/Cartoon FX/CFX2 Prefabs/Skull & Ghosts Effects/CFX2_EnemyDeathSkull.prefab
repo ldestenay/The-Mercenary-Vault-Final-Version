@@ -14285,6 +14285,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnlyDeactivate: 0
   explosionSound: {fileID: 8300000, guid: 5cca9a7654fa7494c965ab0cb6c823a8, type: 3}
+  hitSound: {fileID: 0}
 --- !u!82 &67803369167092925
 AudioSource:
   m_ObjectHideFlags: 0
