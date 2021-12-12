@@ -15,6 +15,7 @@ TagManager:
   - Enemy
   - FxTemporaire
   - BossPlane
+  - DeathFX
   layers:
   - Default
   - TransparentFX

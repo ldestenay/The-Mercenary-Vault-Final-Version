@@ -19,12 +19,20 @@ public class Enemy : MonoBehaviour
     private float timeParticles;
     private float timeDestroy;
 
+    // Audio
+    public AudioClip attackAudio;
+    public AudioClip deathAudio;
+    public AudioClip explosionAudio;
+    private AudioSource audioSource;
+    private readonly float volume = .5f;
+
     void Start()
     {
         enemyRb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         collider = GetComponent<CapsuleCollider>();
         gameManager = FindObjectOfType<GameManager>();
+        audioSource = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
 
         isBoss = life >= 20;
@@ -33,13 +41,13 @@ public class Enemy : MonoBehaviour
 
         if (projectilePrefab != null)
         {
-            StartCoroutine("EnemyShooting");
+            StartCoroutine(EnemyShooting());
         }
     }
 
     IEnumerator EnemyShooting()
     {
-        while (true)
+        while (life > 0)
         {
             yield return new WaitForSeconds(2);
             if(IsTargetVisible(GameObject.Find("Main Camera").GetComponent<Camera>(), gameObject))
@@ -56,6 +64,9 @@ public class Enemy : MonoBehaviour
             animator.Play("Defeat");
             enemyRb.detectCollisions = false;
             Destroy(collider);
+
+            if (!particlesSent) audioSource.PlayOneShot(deathAudio, volume);
+            
             particlesSent = true;
             
             // Launch once Coroutine
@@ -103,6 +114,7 @@ public class Enemy : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             animator.Play("Attack");
+            audioSource.PlayOneShot(attackAudio, volume);
         }
     }
 
