@@ -16,9 +16,7 @@ public class Enemy : MonoBehaviour
     private GameManager gameManager;
 
     private bool particlesSent = false;
-    private bool isBoss = false;
-    private float timeParticles;
-    private float timeDestroy;
+    private float timeDestroy = 3.5f;
 
     // Audio
     public AudioClip attackAudio;
@@ -35,10 +33,6 @@ public class Enemy : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
         audioSource = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
-
-        isBoss = life >= 20;
-        timeParticles = isBoss ? 2 : 2.5f;
-        timeDestroy = timeParticles == 2 ? 4 : 3.5f;
 
         if (projectilePrefab != null)
         {
@@ -68,13 +62,17 @@ public class Enemy : MonoBehaviour
 
             if (!particlesSent) audioSource.PlayOneShot(deathAudio, volume);
 
-            particlesSent = true;
 
             // Launch once Coroutine
-            if (isBoss)
+            if (gameObject.name.Contains("Boss") && !particlesSent)
             {
+                Instantiate(deadParticles, transform.position, transform.rotation);
+                deadParticles.Play();
                 StartCoroutine(gameManager.Win());
             }
+
+            particlesSent = true;
+
             Destroy(gameObject, timeDestroy);
             return;
         }
