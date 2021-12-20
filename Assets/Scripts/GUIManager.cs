@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GUIManager : MonoBehaviour
 {
     public GameObject titleMenu;
+    public GameObject characterMenu;
     public GameObject creditsMenu;
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Level1Scene");
+        titleMenu.SetActive(false);
+        characterMenu.SetActive(true);
     }
 
     public void ShowCredits()

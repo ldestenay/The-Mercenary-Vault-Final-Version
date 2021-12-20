@@ -26,6 +26,12 @@ public class GameManager : MonoBehaviour
     private AudioSource mainMusic;
     public AudioClip bossFight;
 
+    private void Start()
+    {
+        string Character = Scenes.getParam("Character");
+        Debug.Log("Scene loaded with parameters [Character:"+ Character + "]");
+        StartGame();
+    }
 
     // Button Start Pressed
     public void StartGame()

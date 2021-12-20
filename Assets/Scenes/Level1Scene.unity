@@ -490,8 +490,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Game made by :\n * Thomas Perisse\n * Leo Destenay\nAsset and Animation
-    made by :\n * Kay Lousberg\r - KayKit\n * Cartoon FX Free\nMusic made by :\n
-    * RPG BGM -Dungeon\n * Juhani Junkala\n * OpenGameArt"
+    made by :\n * Kay Lousberg\r - KayKit\n * Cartoon FX Free\nMusic made by :\n*
+    RPG BGM -Dungeon\n * Juhani Junkala\n * OpenGameArt"
 --- !u!222 &134804019
 CanvasRenderer:
   m_ObjectHideFlags: 0
