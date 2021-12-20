@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ItempRebound : MonoBehaviour
 {
+    public bool enableRebound = true;
+
     private float degreesPerSecond = 15.0f;
     private float amplitude = 0.15f;
     private float frequency = 1f;
@@ -20,13 +22,16 @@ public class ItempRebound : MonoBehaviour
 
     void Update()
     {
-        // Spin object around Y-Axis
-        transform.Rotate(new Vector3(0f, Time.deltaTime * degreesPerSecond, 0f), Space.World);
+        if (enableRebound)
+        {
+            // Spin object around Y-Axis
+            transform.Rotate(new Vector3(0f, Time.deltaTime * degreesPerSecond, 0f), Space.World);
 
-        // Float up/down with a Sin()
-        tempPos = posOffset;
-        tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * frequency) * amplitude;
+            // Float up/down with a Sin()
+            tempPos = posOffset;
+            tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * frequency) * amplitude;
 
-        transform.position = tempPos;
+            transform.position = tempPos;
+        }
     }
 }
